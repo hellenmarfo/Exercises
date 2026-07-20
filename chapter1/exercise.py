@@ -9,4 +9,9 @@
 #A minus sign still negates the number, and a 2++2 give an addition
 
 
-# I am a goat
+#answer 4
+#syntax error. leading zeros are are not permitted 
+
+
+#answer 5
+#returns same values
