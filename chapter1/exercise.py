@@ -2,4 +2,11 @@
 # Syntax Error
 
 #Anwer 2
-print("Kunta is a coder")
+# Name error and syntax error 
+
+
+#answer 3
+#A minus sign still negates the number, and a 2++2 give an addition
+
+
+#
