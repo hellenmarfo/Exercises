@@ -1,0 +1,135 @@
+# ==========================================
+# THINK PYTHON - CHAPTER 6 EXERCISES
+# Exercises 6-1 to 6-5
+# ==========================================
+
+
+# ------------------------------------------
+# EXERCISE 6-1
+# ------------------------------------------
+
+def b(z):
+    prod = a(z, z)
+    print(z, prod)
+    return prod
+
+
+def a(x, y):
+    x = x + 1
+    return x * y
+
+
+def c(x, y, z):
+    total = x + y + z
+    square = b(total) ** 2
+    return square
+
+
+x = 1
+y = x + 1
+
+print("Exercise 6-1:")
+print(c(x, y + 3, x + y))
+
+
+# Expected output:
+# 9 90
+# 8100
+
+
+# ------------------------------------------
+# EXERCISE 6-2
+# Ackermann Function
+# ------------------------------------------
+
+def ack(m, n):
+    if m == 0:
+        return n + 1
+    elif n == 0:
+        return ack(m - 1, 1)
+    else:
+        return ack(m - 1, ack(m, n - 1))
+
+
+print("\nExercise 6-2:")
+print("ack(3, 4) =", ack(3, 4))
+
+# Expected output:
+# ack(3, 4) = 125
+
+
+# ------------------------------------------
+# EXERCISE 6-3
+# Palindrome
+# ------------------------------------------
+
+def first(word):
+    return word[0]
+
+
+def last(word):
+    return word[-1]
+
+
+def middle(word):
+    return word[1:-1]
+
+
+def is_palindrome(word):
+    if len(word) <= 1:
+        return True
+    elif first(word) != last(word):
+        return False
+    else:
+        return is_palindrome(middle(word))
+
+
+print("\nExercise 6-3:")
+
+print("middle('ab') =", middle("ab"))
+print("middle('a') =", middle("a"))
+print("middle('') =", middle(""))
+
+print("is_palindrome('noon') =", is_palindrome("noon"))
+print("is_palindrome('redivider') =", is_palindrome("redivider"))
+print("is_palindrome('hello') =", is_palindrome("hello"))
+
+
+# ------------------------------------------
+# EXERCISE 6-4
+# is_power
+# ------------------------------------------
+
+def is_power(a, b):
+    if a == 1:
+        return True
+    elif a % b != 0:
+        return False
+    else:
+        return is_power(a // b, b)
+
+
+print("\nExercise 6-4:")
+
+print("is_power(8, 2) =", is_power(8, 2))
+print("is_power(27, 3) =", is_power(27, 3))
+print("is_power(10, 2) =", is_power(10, 2))
+
+
+# ------------------------------------------
+# EXERCISE 6-5
+# Greatest Common Divisor (GCD)
+# ------------------------------------------
+
+def gcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return gcd(b, a % b)
+
+
+print("\nExercise 6-5:")
+
+print("gcd(48, 18) =", gcd(48, 18))
+print("gcd(12, 8) =", gcd(12, 8))
+print("gcd(100, 25) =", gcd(100, 25))
