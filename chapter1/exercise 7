@@ -1,0 +1,129 @@
+
+
+# ============================================================
+# Exercise 7-1
+# Square Root using Newton's Method
+# ============================================================
+
+def mysqrt(a):
+    """Estimate the square root of a using Newton's method."""
+
+    x = a / 2
+
+    while True:
+        y = (x + a / x) / 2
+
+        if abs(y - x) < 1e-12:
+            return y
+
+        x = y
+
+
+def test_square_root():
+    """Print a table comparing mysqrt() with math.sqrt()."""
+
+    import math
+
+    print("a\tmysqrt(a)\tmath.sqrt(a)\tdiff")
+    print("-" * 60)
+
+    for a in range(1, 10):
+        my_result = mysqrt(float(a))
+        math_result = math.sqrt(float(a))
+        difference = abs(my_result - math_result)
+
+        print(
+            f"{a:.1f}\t"
+            f"{my_result:.12f}\t"
+            f"{math_result:.12f}\t"
+            f"{difference:.12g}"
+        )
+
+
+# ============================================================
+# Exercise 7-2
+# eval_loop
+# ============================================================
+
+def eval_loop():
+    """Continuously evaluate expressions until the user enters 'done'."""
+
+    last_result = None
+
+    while True:
+        user_input = input("Enter an expression (or 'done' to quit): ")
+
+        if user_input == "done":
+            return last_result
+
+        try:
+            last_result = eval(user_input)
+            print(last_result)
+        except Exception as error:
+            print("Error:", error)
+
+
+# ============================================================
+# Exercise 7-3
+# Estimate Pi using Ramanujan's Infinite Series
+# ============================================================
+
+def estimate_pi():
+    """Estimate pi using Ramanujan's infinite series."""
+
+    import math
+
+    total = 0
+    k = 0
+
+    while True:
+        numerator = math.factorial(4 * k) * (1103 + 26390 * k)
+        denominator = (
+            math.factorial(k) ** 4
+            * 396 ** (4 * k)
+        )
+
+        term = numerator / denominator
+        total += term
+
+        if term < 1e-15:
+            break
+
+        k += 1
+
+    pi_estimate = 1 / ((2 * math.sqrt(2) / 9801) * total)
+
+    return pi_estimate
+
+
+# ============================================================
+# MAIN PROGRAM
+# ============================================================
+
+if __name__ == "__main__":
+
+    print("=" * 60)
+    print("EXERCISE 7-1: SQUARE ROOT")
+    print("=" * 60)
+
+    test_square_root()
+
+    print("\n")
+    print("=" * 60)
+    print("EXERCISE 7-2: EVAL LOOP")
+    print("=" * 60)
+
+    result = eval_loop()
+    print("Last result:", result)
+
+    print("\n")
+    print("=" * 60)
+    print("EXERCISE 7-3: ESTIMATE PI")
+    print("=" * 60)
+
+    pi_result = estimate_pi()
+    print("Estimated pi:", pi_result)
+
+    import math
+    print("math.pi:", math.pi)
+    print("Difference:", abs(pi_result - math.pi))
