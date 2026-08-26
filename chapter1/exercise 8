@@ -1,0 +1,171 @@
+
+# ============================================================
+# Exercise 8-1
+# String Methods
+# ============================================================
+
+# Experimenting with useful string methods: strip() and replace()
+
+text = "   Hello, Python!   "
+
+# strip() removes spaces from the beginning and end
+stripped_text = text.strip()
+
+# replace() replaces one piece of text with another
+replaced_text = stripped_text.replace("Python", "World")
+
+print("Exercise 8-1")
+print("Original:", text)
+print("After strip():", stripped_text)
+print("After replace():", replaced_text)
+
+
+# ============================================================
+# Exercise 8-2
+# Count the number of 'a's in 'banana'
+# ============================================================
+
+word = "banana"
+
+number_of_a = word.count("a")
+
+print("\nExercise 8-2")
+print("Number of 'a's in banana:", number_of_a)
+
+
+# ============================================================
+# Exercise 8-3
+# Check if a word is a palindrome
+# ============================================================
+
+def is_palindrome(word):
+    return word == word[::-1]
+
+
+print("\nExercise 8-3")
+print("Is 'racecar' a palindrome?", is_palindrome("racecar"))
+print("Is 'banana' a palindrome?", is_palindrome("banana"))
+
+
+# ============================================================
+# Exercise 8-4
+# Understanding any_lowercase functions
+# ============================================================
+
+def any_lowercase1(s):
+    for c in s:
+        if c.islower():
+            return True
+        else:
+            return False
+
+
+def any_lowercase2(s):
+    for c in s:
+        if 'c'.islower():
+            return 'True'
+        else:
+            return 'False'
+
+
+def any_lowercase3(s):
+    for c in s:
+        flag = c.islower()
+    return flag
+
+
+def any_lowercase4(s):
+    flag = False
+    for c in s:
+        flag = flag or c.islower()
+    return flag
+
+
+def any_lowercase5(s):
+    for c in s:
+        if not c.islower():
+            return False
+    return True
+
+
+print("\nExercise 8-4")
+
+print("any_lowercase1('ABCdef'):", any_lowercase1("ABCdef"))
+print("any_lowercase2('ABCDEF'):", any_lowercase2("ABCDEF"))
+print("any_lowercase3('ABCd'):", any_lowercase3("ABCd"))
+print("any_lowercase4('ABCd'):", any_lowercase4("ABCd"))
+print("any_lowercase5('abcdef'):", any_lowercase5("abcdef"))
+
+
+# ============================================================
+# Explanation of Exercise 8-4
+# ============================================================
+
+"""
+any_lowercase1:
+Checks only the FIRST character.
+If the first character is lowercase, it returns True.
+If the first character is not lowercase, it immediately returns False.
+
+any_lowercase2:
+Checks 'c' instead of the variable c.
+The string 'c' is always lowercase, so it always returns the string 'True'
+for any non-empty input.
+
+any_lowercase3:
+Checks every character but keeps replacing flag.
+Therefore, it only returns whether the LAST character is lowercase.
+
+any_lowercase4:
+Correctly checks whether ANY character is lowercase.
+Once a lowercase character is found, flag remains True.
+
+any_lowercase5:
+Checks whether ALL characters are lowercase.
+It returns False as soon as it finds an uppercase character.
+"""
+
+
+# ============================================================
+# Exercise 8-5
+# Caesar Cipher / rotate_word
+# ============================================================
+
+def rotate_word(word, rotation):
+    """
+    Rotate each letter in a word by the specified amount.
+    Uppercase and lowercase letters are handled separately.
+    """
+
+    result = ""
+
+    for letter in word:
+
+        # Handle lowercase letters
+        if 'a' <= letter <= 'z':
+            start = ord('a')
+            new_position = (ord(letter) - start + rotation) % 26
+            result += chr(start + new_position)
+
+        # Handle uppercase letters
+        elif 'A' <= letter <= 'Z':
+            start = ord('A')
+            new_position = (ord(letter) - start + rotation) % 26
+            result += chr(start + new_position)
+
+        # Keep spaces, numbers and symbols unchanged
+        else:
+            result += letter
+
+    return result
+
+
+print("\nExercise 8-5")
+
+print("cheer rotated by 7:", rotate_word("cheer", 7))
+print("melon rotated by -10:", rotate_word("melon", -10))
+print("IBM rotated by -1:", rotate_word("IBM", -1))
+
+# Additional examples
+print("hello rotated by 13:", rotate_word("hello", 13))
+print("Python rotated by 5:", rotate_word("Python", 5))
