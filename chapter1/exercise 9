@@ -1,0 +1,220 @@
+
+
+
+# ============================================================
+# Exercise 9-7
+# Three Consecutive Double Letters
+# ============================================================
+
+def has_three_consecutive_doubles(word):
+    """
+    Return True if the word contains three consecutive
+    pairs of the same letter.
+
+    Example:
+    bookkeeper -> oo kk ee
+    """
+
+    i = 0
+    count = 0
+
+    while i < len(word) - 1:
+
+        if word[i] == word[i + 1]:
+            count += 1
+            i += 2
+
+            if count == 3:
+                return True
+        else:
+            count = 0
+            i += 1
+
+    return False
+
+
+def exercise_9_7():
+    """Find words with three consecutive pairs of letters."""
+
+    try:
+        fin = open("words.txt")
+
+        print("=" * 60)
+        print("EXERCISE 9-7")
+        print("Words with three consecutive double letters")
+        print("=" * 60)
+
+        found = False
+
+        for line in fin:
+            word = line.strip()
+
+            if has_three_consecutive_doubles(word):
+                print(word)
+                found = True
+
+        fin.close()
+
+        if not found:
+            print("No matching words were found.")
+
+    except FileNotFoundError:
+        print("Error: words.txt was not found.")
+
+
+# ============================================================
+# Exercise 9-8
+# Odometer Palindromes
+# ============================================================
+
+def is_palindrome(text):
+    """Return True if text reads the same forward and backward."""
+
+    return text == text[::-1]
+
+
+def exercise_9_8():
+    """
+    Find six-digit numbers that satisfy the Car Talk
+    odometer palindrome requirements.
+    """
+
+    print("\n")
+    print("=" * 60)
+    print("EXERCISE 9-8")
+    print("Car Talk Odometer Puzzle")
+    print("=" * 60)
+
+    for number in range(100000, 1000000):
+
+        # Convert the number to a string.
+        odometer = str(number)
+
+        # First reading:
+        # Last 4 digits are a palindrome.
+        condition_1 = is_palindrome(odometer[2:6])
+
+        # One mile later:
+        # Last 5 digits are a palindrome.
+        condition_2 = is_palindrome(str(number + 1)[1:6])
+
+        # Two miles later:
+        # Middle 4 digits are a palindrome.
+        condition_3 = is_palindrome(str(number + 2)[1:5])
+
+        # Three miles later:
+        # All 6 digits are a palindrome.
+        condition_4 = is_palindrome(str(number + 3))
+
+        if condition_1 and condition_2 and condition_3 and condition_4:
+            print("Starting odometer reading:", number)
+            print("One mile later:             ", number + 1)
+            print("Two miles later:            ", number + 2)
+            print("Three miles later:          ", number + 3)
+            print()
+
+
+# ============================================================
+# Exercise 9-9
+# Reversible Ages
+# ============================================================
+
+def reverse_age(age):
+    """
+    Reverse the digits of an age.
+
+    zfill(2) ensures that ages such as 5 become '05'
+    before reversing.
+    """
+
+    age_string = str(age).zfill(2)
+
+    reversed_string = age_string[::-1]
+
+    return int(reversed_string)
+
+
+def count_reversible_ages(my_age, mother_age, years=100):
+    """
+    Count how many times the two ages are reverses
+    of each other over the specified number of years.
+    """
+
+    count = 0
+
+    for year in range(years):
+
+        current_my_age = my_age + year
+        current_mother_age = mother_age + year
+
+        if reverse_age(current_my_age) == current_mother_age:
+            count += 1
+
+    return count
+
+
+def exercise_9_9():
+    """
+    Search for possible current ages that satisfy
+    the Car Talk reversible-age puzzle.
+    """
+
+    print("\n")
+    print("=" * 60)
+    print("EXERCISE 9-9")
+    print("Car Talk Reversible Ages Puzzle")
+    print("=" * 60)
+
+    print("Possible solutions:")
+
+    for my_age in range(10, 100):
+
+        # Assume the mother is older.
+        for age_difference in range(10, 51):
+
+            mother_age = my_age + age_difference
+
+            # Count reversible ages from the current age onward.
+            count = count_reversible_ages(
+                my_age,
+                mother_age
+            )
+
+            # The puzzle says it has happened 6 times so far,
+            # and could happen two more times.
+            if count == 8:
+
+                # Count how many times it has already happened.
+                past_count = 0
+
+                for years_ago in range(my_age):
+
+                    past_my_age = my_age - years_ago
+                    past_mother_age = mother_age - years_ago
+
+                    if past_my_age >= 0 and past_mother_age >= 0:
+                        if reverse_age(past_my_age) == past_mother_age:
+                            past_count += 1
+
+                if past_count == 6:
+                    print(
+                        "My age:",
+                        my_age,
+                        "| Mother's age:",
+                        mother_age,
+                        "| Reversible ages so far:",
+                        past_count
+                    )
+
+
+# ============================================================
+# MAIN PROGRAM
+# ============================================================
+
+if __name__ == "__main__":
+
+    exercise_9_7()
+
+    exercise_9_8()
+
+    exercise_9_9()
